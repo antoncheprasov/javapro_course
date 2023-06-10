@@ -12,3 +12,5 @@ public class NegativeElementsCount {
         System.out.println("A number of negative elements " + count);
     }
 }
+
+к сожалению не было времени чтобы решить упражнения в данном домашнем задании
