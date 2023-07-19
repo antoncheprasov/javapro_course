@@ -1,0 +1,76 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class homework7 {
+
+    public static void main(String[] args) {
+
+        List<Integer> tenMills = new ArrayList<>();
+
+
+        for (int i = 1; i <= 10000000; i++) {
+            tenMills.add(i);
+        }
+        for (int temp : tenMills) {
+            System.out.println(temp);
+        }
+
+
+        //Сделать то же самое с помощью классического for.
+      
+        for (int i = 0; i < tenMills.size(); i++) {
+            int temp = tenMills.get(i);
+            System.out.println(temp);
+        }
+        
+
+        // Сделать то же самое с помощью классического for,
+        // но сначала вынести размер листа в отдельную переменную,
+        // а потом эту переменную использовать внутри условия цикла.
+        int listSize = 10000000;
+         for (int i = 1; i <= listSize; i++) {
+            tenMills.add(i);
+        }
+
+        for (int i = 0; i < listSize; i++) {
+            int temp = tenMills.get(i);
+            System.out.println(temp); 
+
+        // Сделать то же самое, что и в пункте 5, но перебрать лист с конца до начала.
+            for (int i = listSize - 1; i >= 0; i--) {
+                int temp = tenMills.get(i);
+                System.out.println(temp);
+            }
+        // Сделать то же самое, но используя Iterator.
+        Iterator<Integer> iterator = tenMills.iterator();
+        while (iterator.hasNext()) {
+            int temp = iterator.next();
+            System.out.println(temp);
+        }
+
+        //Сделать то же самое, но используя ListIterator.
+        //Для всех случаев 3-8 замерить время, в течение которого отрабатывает цикл:
+        //
+        //Замеряете текущее время до цикла с помощью метода System.currentTimeMillis();
+        //
+        //Замеряете текущее время после цикла с помощью метода System.currentTimeMillis();
+        //
+        //Выводите разницу во времени после и до в консоль.
+
+
+        ListIterator<Integer> listIterator = tenMills.listIterator(tenMills.size());
+
+        long startTime = System.currentTimeMillis();
+
+        while (tenMills.listIterator().hasPrevious()) {
+            int temp = tenMills.listIterator().previous();
+            System.out.println(temp);
+        }
+
+        long endTime = System.currentTimeMillis();
+        long executionTime = endTime - startTime;
+        System.out.println("Время выполнения цикла: " + executionTime + " мс");
+
+
+    }
+}
