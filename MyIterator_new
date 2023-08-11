@@ -1,0 +1,111 @@
+package homework_lesson7.task2;
+
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
+
+public class MyIterator_new implements ListIterator<String> {
+
+    private Node current;
+    private int index  = 0;
+
+    public int getIndex() {
+        return index;
+    }
+
+
+    public MyIterator_new(Node current) {
+        this.current = current;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return current != null;
+    }
+
+    @Override
+    public String next() {
+        this.index++;
+        if (current == null) {
+            throw new NoSuchElementException();
+        }
+        String value = current.getValue();
+        current = current.getNext();    // перепрыгиваем на следующий узел
+        return value;
+    }
+
+
+    @Override
+    public boolean hasPrevious() {
+        return current != null && current.getPrevious() != null;
+    }
+
+
+    @Override
+    public String previous() {
+        if (current == null || current.getPrevious() == null) {
+            throw new NoSuchElementException();
+        }
+        this.index--;
+        current = current.getPrevious();
+        return current.getValue();
+    }
+
+
+    @Override
+    public int nextIndex() {
+        return index+1;
+    }
+
+
+
+    @Override
+    public int previousIndex() {
+        return index-1;
+    }
+
+
+
+    @Override
+    public void remove() {
+        if(current.getPrevious() !=null && current.getNext() != null) {
+            current.getPrevious().setNext(current.getNext());
+            current.getNext().setPrevious(current.getPrevious());
+        } else if (current.getPrevious() == null && current.getNext() != null){
+            current.getNext().setPrevious(null);
+        } else if(current.getNext() ==null && current.getPrevious() !=null) {
+            current.getPrevious().setNext(null);
+        }
+    }
+
+
+    @Override
+    public void set(String s) {
+        Node newNode = new Node(s);
+
+        if( current.getPrevious() != null ) {
+            current.getPrevious().setNext(newNode);
+        }
+
+        if( current.getNext() !=null) {
+            current.getNext().setPrevious(newNode);
+        }
+
+        current = newNode;
+    }
+
+
+    @Override
+    public void add(String s) {
+        if (current == null) {
+            throw new NoSuchElementException();
+        }
+
+        Node newNode = new Node(s);
+
+        if(current.getPrevious() != null) {
+            newNode.setPrevious(current.getPrevious());
+        }
+        current.setPrevious(newNode);
+    }
+
+}
